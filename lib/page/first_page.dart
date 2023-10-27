@@ -7,10 +7,10 @@ import 'package:flutter_application_1/page/second_page.dart';
 
 class FirstScreen extends StatefulWidget {
   @override
-  _FourthScreenState createState() => _FourthScreenState();
+  _FirstScreenState createState() => _FirstScreenState();
 }
 
-class _FourthScreenState extends State<FirstScreen> {
+class _FirstScreenState extends State<FirstScreen> {
   TextEditingController _emailController = TextEditingController();
   bool _isButtonEnabled = false;
 
@@ -39,38 +39,17 @@ class _FourthScreenState extends State<FirstScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: screenWidth * 0.1,
-                        child: Image.asset("assets/images/Hello.jpg", fit: BoxFit.fill,)
-                    ),
                     SizedBox(width: screenWidth * 0.02,),
                     const TextPlace(
                       txt: "Добро пожаловать!",
                       st: FontWeight.bold,
-                      align: TextAlign.left,
+                      align: TextAlign.center,
                       width: 0.8, 
                       height: 0.2, 
                       backgroundColor: Colors.white, 
                       colortxt: Colors.black, 
                       size: 32),
                   ],
-                ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 16.0),
-                    child : TextPlace(
-                      txt: "Войдите, чтобы пользоваться функциями приложения",
-                      st: FontWeight.normal, 
-                      width: 0.7, 
-                      align: TextAlign.left,
-                      height: 0.1, 
-                      backgroundColor: Colors.white, 
-                      colortxt: Colors.black, 
-                      size: 16)
-                    ),
-                  ]
                 ),
                 SizedBox(height: screenHeight * 0.05,),
                 Row(
@@ -132,7 +111,7 @@ class _FourthScreenState extends State<FirstScreen> {
                     ButtonPush(
                       isEnabled: true,
                       size: 24,
-                      page: (context) => SecondScreen(),
+                      page: (context) => FirstScreen(),
                       backgroundColor: Colors.white,
                       width: 0.8,
                       height: 0.1,

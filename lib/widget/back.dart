@@ -34,7 +34,7 @@ class Back extends StatelessWidget {
        minimumSize: Size(rectangleWidth, rectangleHeight),
        backgroundColor: Colors.white,
       ),
-      child: Image.asset("assets/images/Back.jpg", fit: BoxFit.fill,),
+      child: Image.asset("assets/Back.jpg", fit: BoxFit.fill,),
     );
   }
 }

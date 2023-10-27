@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_beginning/page/seventh.dart';
-import 'package:flutter_beginning/widget/button_text.dart';
-import 'package:flutter_beginning/widget/text_place.dart';
-import 'package:flutter_beginning/widget/password.dart';
-import 'package:flutter_beginning/page/eighth_page.dart';
-import 'package:flutter_beginning/widget/del.dart';
+import 'package:flutter_application_1/page/fourth_page.dart';
+import 'package:flutter_application_1/widget/button_text.dart';
+import 'package:flutter_application_1/widget/text_place.dart';
+import 'package:flutter_application_1/widget/password.dart';
+import 'package:flutter_application_1/widget/del.dart';
 
 class SixthScreen extends StatefulWidget {
   @override
@@ -26,7 +25,7 @@ class _SixthScreenState extends State<SixthScreen> {
       // Если введен четырёхзначный код, переходим на следующую страницу
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => SeventhScreen()),
+        MaterialPageRoute(builder: (context) => FourthScreen()),
       );
     }
   }
@@ -65,7 +64,7 @@ class _SixthScreenState extends State<SixthScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ButtonText(
-                      page: (context) => EighthScreen(),
+                      page: (context) => FourthScreen(),
                       txt: butSkip, 
                       width: 0.4,
                       height: 0.1, 
