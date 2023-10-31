@@ -36,21 +36,21 @@ class _FirstScreenState extends State<FirstScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: screenWidth * 0.02,),
-                    const TextPlace(
-                      txt: "Добро пожаловать!",
-                      st: FontWeight.bold,
-                      align: TextAlign.center,
-                      width: 0.8, 
-                      height: 0.2, 
-                      backgroundColor: Colors.white, 
-                      colortxt: Colors.black, 
-                      size: 32),
-                  ],
-                ),
+                Padding(
+                    padding: EdgeInsets.only(top: 95, bottom: 90, left: 10, right: 10),
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        "Добро пожаловать!",
+                        textDirection: TextDirection.ltr,
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
                 SizedBox(height: screenHeight * 0.05,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
