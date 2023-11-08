@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/page/fifth_page.dart';
 import 'package:flutter_application_1/page/third_page.dart';
 
 
@@ -29,7 +30,7 @@ class _CodeInputState extends State<CodeInput> {
 
         // Проверяем, если текст достаточно длинный, то выполняем навигацию
         if (combinedText.length == 4) {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => SixthScreen()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ThirdScreen()));
         }
       });
     }
