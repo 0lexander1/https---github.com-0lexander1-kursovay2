@@ -5,7 +5,13 @@ class Statia4Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Правильное питание для кошек'), 
+        title: Text(
+          'Правильное питание для кошек',
+          style: TextStyle(
+            fontSize: 20,
+          ),
+        ),
+        centerTitle: true,
       ),
       body: ListView(
         children: <Widget>[
@@ -15,7 +21,7 @@ class Statia4Screen extends StatelessWidget {
               bottomRight: Radius.circular(10.0),
             ),
             child: Image.asset(
-              'assets/cat.jpg', 
+              'assets/cat4.jpg', 
               fit: BoxFit.cover,
             ),
           ),

@@ -5,7 +5,13 @@ class Statia2Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Почему кошки много спят'),
+        title: Text(
+          'Почему кошки много спят?',
+          style: TextStyle(
+            fontSize: 20,
+          ),
+        ),
+        centerTitle: true,
       ),
       body: ListView(
         children: <Widget>[

@@ -5,7 +5,13 @@ class Statia3Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Правильное питание для собак'),
+        title: Text(
+          'Правильное питание для собак',
+          style: TextStyle(
+            fontSize: 20,
+          ),
+        ),
+        centerTitle: true,
       ),
       body: ListView(
         children: <Widget>[

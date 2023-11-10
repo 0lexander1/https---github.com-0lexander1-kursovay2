@@ -37,27 +37,58 @@ class _FifthScreenState extends State<FifthScreen> {
         padding: const EdgeInsets.all(8),
         child: ListView(
           children: [
-            TextField(
-              controller: _searchController,
-              onChanged: (value) {
-                setState(() {
-                  _searchText = value;
-                });
-              },
-              decoration: InputDecoration(
-                hintText: 'Поиск',
-                prefixIcon: Icon(Icons.search),
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.clear),
-                  onPressed: () {
-                    setState(() {
-                      _searchText = '';
-                      _searchController.clear();
-                    });
-                  },
-                ),
+            TextField( 
+                controller: _searchController, 
+                onChanged: (value) { 
+                  setState(() { 
+                    _searchText = value; 
+                    if (_searchText.toLowerCase() == 'собака боится воды') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Statia1Screen()),
+                      );
+                    } else if (_searchText.toLowerCase() == 'почему кошки много спят') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Statia2Screen()),
+                      );
+                    } else if (_searchText.toLowerCase() == 'правильное питание для собак') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Statia3Screen()),
+                      );
+                    } else if (_searchText.toLowerCase() == 'правильное питание для кошек') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Statia4Screen()),
+                      );
+                    } else if (_searchText.toLowerCase() == 'обучение щенков') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Statia5Screen()),
+                      );
+                    } else if (_searchText.toLowerCase() == 'уникальные особенности кошек') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Statia6Screen()),
+                      );
+                    }
+                  }); 
+                }, 
+                decoration: InputDecoration( 
+                  hintText: 'Поиск', 
+                  prefixIcon: Icon(Icons.search), 
+                  suffixIcon: IconButton( 
+                    icon: Icon(Icons.clear), 
+                    onPressed: () { 
+                      setState(() { 
+                        _searchText = ''; 
+                        _searchController.clear(); 
+                      }); 
+                    }, 
+                  ), 
+                ), 
               ),
-            ),
             SizedBox(height: 16),
             Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -201,7 +232,7 @@ class _FifthScreenState extends State<FifthScreen> {
                 ),
               ),
             ],
-          ),
+            ),
             SizedBox(height: 16),
             GestureDetector(
                 onTap: () {
