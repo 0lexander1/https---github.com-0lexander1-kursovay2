@@ -13,6 +13,7 @@ import 'package:flutter_application_1/page/fourth_page.dart';
 
 
 class ThirdScreen extends StatefulWidget {
+
   @override
   _ThirdScreenState createState() => _ThirdScreenState();
 }
@@ -21,7 +22,7 @@ class ThirdScreen extends StatefulWidget {
   TextEditingController _searchController = TextEditingController();
   String _searchText = '';
 
-
+  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -542,58 +543,57 @@ class ThirdScreen extends StatefulWidget {
         ),
       ),
       
-      bottomNavigationBar: BottomNavigationBar(
-  items: <BottomNavigationBarItem>[
-    BottomNavigationBarItem(
-      icon: Icon(Icons.home),
-      label: 'Главная',
+              bottomNavigationBar: BottomNavigationBar(
+      type: BottomNavigationBarType.fixed, // Фиксированные позиции элементов
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Главная',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.list),
+          label: 'Услуги',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.location_on),
+          label: 'Рядом',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Профиль',
+        ),
+      ],
+      unselectedItemColor: const Color(0xFFAAAAAA), // Цвет неактивных элементов
+      selectedItemColor: const Color(0xFF1A6FEE), // Цвет активного элемента
+      currentIndex: _selectedIndex, // Указываем текущий активный элемент
+      onTap: (int index) {
+        setState(() {
+          _selectedIndex = index; // Устанавливаем выбранный индекс по нажатию
+          if (index == 0) {
+            // Обработка нажатия на "Главная"
+            // Дополнительные действия, если необходимо
+          } else if (index == 1) {
+            // Обработка нажатия на "Услуги"
+            // Дополнительные действия, если необходимо
+          } else if (index == 2) {
+            // Обработка нажатия на "Рядом"
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SixScreen()),
+            );
+          } else if (index == 3) {
+            // Обработка нажатия на "Профиль"
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfileScreen()),
+            );
+          }
+        });
+      },
+      selectedLabelStyle: TextStyle(fontSize: 12), // Уменьшаем размер текста выбранного элемента
+      unselectedLabelStyle: TextStyle(fontSize: 12), // Уменьшаем размер текста не выбранного элемента
+      showUnselectedLabels: true, // Показывать текст для невыбранных элементов
     ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.list),
-      label: 'Услуги',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.location_on),
-      label: 'Рядом',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.person),
-      label: 'Профиль',
-    ),
-  ],
-  unselectedItemColor: const Color(0xFFAAAAAA), // Цвет неактивных элементов
-  selectedItemColor: const Color(0xFF1A6FEE), // Цвет активного элемента
-  onTap: (int index) {
-    switch (index) {
-      case 0:
-        // Обработка нажатия на "Главная"
-        // Можно добавить соответствующий код здесь
-        break;
-      case 1:
-        // Обработка нажатия на "Услуги"
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => FourthScreen()),
-        );
-        break;
-      case 2:
-        // Обработка нажатия на "Рядом"
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => SixScreen()),
-        );
-        break;
-      case 3:
-        // Обработка нажатия на "Профиль"
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ProfileScreen()),
-        );
-        break;
-    }
-  },
-),
-
     );
   }
 }

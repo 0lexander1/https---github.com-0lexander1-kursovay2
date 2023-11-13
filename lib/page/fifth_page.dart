@@ -106,7 +106,7 @@ class _FifthScreenState extends State<FifthScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Container(
                     height: 324,
-                    width: 156,
+                    width: 170,
                     decoration: BoxDecoration(
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(10),
@@ -175,7 +175,7 @@ class _FifthScreenState extends State<FifthScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Container(
                     height: 324,
-                    width: 156,
+                    width: 170,
                     decoration: BoxDecoration(
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(10),
@@ -390,7 +390,7 @@ class _FifthScreenState extends State<FifthScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Container(
                     height: 324,
-                    width: 156,
+                    width: 170,
                     decoration: BoxDecoration(
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(10),
@@ -459,7 +459,7 @@ class _FifthScreenState extends State<FifthScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Container(
                     height: 324,
-                    width: 156,
+                    width: 170,
                     decoration: BoxDecoration(
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(10),

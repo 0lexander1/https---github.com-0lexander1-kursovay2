@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/page/fifth_page.dart';
-import 'package:flutter_application_1/page/third_page.dart';
+import 'package:flutter_application_1/page/home_page.dart';
 
 
 class CodeInput extends StatefulWidget {

@@ -30,11 +30,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  image_picker: ^1.0.4
   flutter_svg: ^2.0.7
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  yandex_mapkit: ^3.2.0
+  geolocator: ^9.0.2
+
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +70,7 @@ flutter:
     - assets/cat3.jpg
     - assets/cat4.jpg
     - assets/cat5.jpg
+    - assets/catprofile.jpg
     - assets/cobaka.jpg
     - assets/cobaka2.jpg
     - assets/cobaka3.jpg
@@ -75,6 +80,8 @@ flutter:
     - assets/cobaka7.jpg
     - assets/cobaka8.jpg
     - assets/cobaka9.jpg
+    - assets/marker.png
+    - assets/markerKlinik.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see
