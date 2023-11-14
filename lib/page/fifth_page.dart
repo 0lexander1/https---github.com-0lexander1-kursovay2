@@ -24,71 +24,100 @@ class _FifthScreenState extends State<FifthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: Text(
-          'Интересные статьи',
+          ' Интересные статьи',
           style: TextStyle(
             fontSize: 20,
+            color: Colors.black,
           ),
         ),
         centerTitle: true,
+        iconTheme: IconThemeData(
+          color: Colors.blue,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: ListView(
           children: [
-            TextField( 
-                controller: _searchController, 
-                onChanged: (value) { 
-                  setState(() { 
-                    _searchText = value; 
-                    if (_searchText.toLowerCase() == 'собака боится воды') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Statia1Screen()),
-                      );
-                    } else if (_searchText.toLowerCase() == 'почему кошки много спят') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Statia2Screen()),
-                      );
-                    } else if (_searchText.toLowerCase() == 'правильное питание для собак') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Statia3Screen()),
-                      );
-                    } else if (_searchText.toLowerCase() == 'правильное питание для кошек') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Statia4Screen()),
-                      );
-                    } else if (_searchText.toLowerCase() == 'обучение щенков') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Statia5Screen()),
-                      );
-                    } else if (_searchText.toLowerCase() == 'уникальные особенности кошек') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Statia6Screen()),
-                      );
-                    }
-                  }); 
-                }, 
-                decoration: InputDecoration( 
-                  hintText: 'Поиск', 
-                  prefixIcon: Icon(Icons.search), 
-                  suffixIcon: IconButton( 
-                    icon: Icon(Icons.clear), 
-                    onPressed: () { 
-                      setState(() { 
-                        _searchText = ''; 
-                        _searchController.clear(); 
-                      }); 
-                    }, 
-                  ), 
-                ), 
-              ),
+            Container(
+            height: 38,
+            width: 350,
+            decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.3), // Полупрозрачный серый цвет
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              children: [
+                SizedBox(width: 8), // Добавим небольшое пространство слева
+                Icon(
+                  Icons.search,
+                  color: Color(0xFF1A6FEE), // Цвет значка поиска
+                ),// Иконка поиска слева
+                SizedBox(width: 8), // Еще небольшое пространство между иконкой и текстовым полем
+                Expanded(
+                  child: TextField(
+                    controller: _searchController,
+                    onChanged: (value) {
+                      setState(() {
+                        _searchText = value;
+                        if (_searchText.toLowerCase() == 'собака боится воды') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => Statia1Screen()),
+                                );
+                              } else if (_searchText.toLowerCase() == 'почему кошки много спят') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => Statia2Screen()),
+                                );
+                              } else if (_searchText.toLowerCase() == 'правильное питание для собак') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => Statia3Screen()),
+                                );
+                              } else if (_searchText.toLowerCase() == 'правильное питание для кошек') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => Statia4Screen()),
+                                );
+                              } else if (_searchText.toLowerCase() == 'обучение щенков') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => Statia5Screen()),
+                                );
+                              } else if (_searchText.toLowerCase() == 'уникальные особенности кошек') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => Statia6Screen()),
+                                );
+                              }
+                            }); 
+                          }, 
+                    decoration: InputDecoration(
+                      hintText: 'Поиск',
+                      border: InputBorder.none, // Удаление границы у текстового поля
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.clear),
+                  color: Color(0xFF1A6FEE),
+                  onPressed: () {
+                    setState(() {
+                      _searchText = '';
+                      _searchController.clear();
+                    });
+                  },
+                ),
+                SizedBox(width: 8), // Добавим небольшое пространство справа
+              ],
+            ),
+          ),
             SizedBox(height: 16),
             Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -106,7 +135,7 @@ class _FifthScreenState extends State<FifthScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Container(
                     height: 324,
-                    width: 170,
+                    width: 156,
                     decoration: BoxDecoration(
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(10),
@@ -175,7 +204,7 @@ class _FifthScreenState extends State<FifthScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Container(
                     height: 324,
-                    width: 170,
+                    width: 156,
                     decoration: BoxDecoration(
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(10),
@@ -390,7 +419,7 @@ class _FifthScreenState extends State<FifthScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Container(
                     height: 324,
-                    width: 170,
+                    width: 156,
                     decoration: BoxDecoration(
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(10),
@@ -459,7 +488,7 @@ class _FifthScreenState extends State<FifthScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Container(
                     height: 324,
-                    width: 170,
+                    width: 156,
                     decoration: BoxDecoration(
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(10),

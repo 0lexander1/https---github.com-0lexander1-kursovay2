@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/map/domain/app_lat_long.dart';
-import 'package:flutter_application_1/page/fourth_page.dart';
+import 'package:flutter_application_1/page/uslugi_page.dart';
 import 'package:flutter_application_1/page/home_page.dart';
 import 'package:flutter_application_1/page/profile_page.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';

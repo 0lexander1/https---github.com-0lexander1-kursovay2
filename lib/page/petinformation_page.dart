@@ -9,9 +9,12 @@ class PetInformationScreen extends StatefulWidget {
 
 class _PetInformationScreenState extends State<PetInformationScreen> {
   File? _image;
+  TextEditingController _nameController = TextEditingController(text: 'Имя Фамилия');
+  String owner = 'Владелец';
 
   final picker = ImagePicker();
   String _petName = 'Кличка'; // Изначальное значение "Кличка"
+  String _petPoroda = 'Порода';
 
   Future<void> getImage() async {
     final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -31,23 +34,37 @@ class _PetInformationScreenState extends State<PetInformationScreen> {
     });
   }
 
+  void updatePetPoroda(String newPoroda) {
+    setState(() {
+      _petPoroda = newPoroda; // Обновляем имя питомца
+    });
+  }
+
 @override
 Widget build(BuildContext context) {
   return Scaffold(
-    appBar: AppBar(
-      title: Text(
-        'Информация о питомце',
-        style: TextStyle(
-          fontSize: 20,
+    extendBodyBehindAppBar: true, // Разрешаем содержимому пройти за апп бар
+        appBar: AppBar(
+          backgroundColor: Colors.transparent, // Делаем фон апп бара полностью прозрачным
+          elevation: 0, // Убираем тень апп бара
+          title: Text(
+            'Информация о питомце',
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.black, // Задаем цвет текста
+            ),
+          ),
+          centerTitle: true,
+          iconTheme: IconThemeData(
+            color: Colors.blue, // Задаем цвет иконки назад
+          ),
         ),
-      ),
-      centerTitle: true,
-    ),
+        
     body: Stack(
       children: [
         // Контейнер с изображением
         Positioned(
-          top: 70, // Небольшой отступ от AppBar
+          top: 150, // Небольшой отступ от AppBar
           left: (MediaQuery.of(context).size.width - 182) / 2, // Центрируем по горизонтали
           child: Container(
             width: 182,
@@ -129,7 +146,7 @@ Widget build(BuildContext context) {
         ),
         // Кнопка для смены изображения
         Positioned(
-          top: 140, // Расположение относительно верхней границы контейнера с изображением
+          top: 220, // Расположение относительно верхней границы контейнера с изображением
           left: (MediaQuery.of(context).size.width - 40) / 2, // Центрируем по горизонтали
           child: IconButton(
             padding: EdgeInsets.all(0), // Убираем внутренний отступ
@@ -138,9 +155,77 @@ Widget build(BuildContext context) {
           ),
         ),
         
+        Positioned(
+          top: 425, // Подбирайте координаты в зависимости от вашего дизайна
+          left: (MediaQuery.of(context).size.width - 360) / 2, // Центрируем по горизонтали
+          child: Container(
+            width: 360,
+            height: 600,
+            decoration: BoxDecoration(
+              color: Colors.blue.withOpacity(0.5),
+              borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40),
+            ),
+            // здесь ты можешь добавить дополнительное содержимое, если это необходимо
+          ),
+        ),
+        ),
+        // Контейнер с надписью на синем фоне
+        Positioned(
+          top: 450, // Смещение от верхней границы нижнего контейнера
+          left: (MediaQuery.of(context).size.width - 182) / 2, // Центрируем по горизонтали
+          child: GestureDetector(
+            onTap: () {
+              // При нажатии, открываем диалоговое окно для изменения имени питомца
+              showDialog(
+                context: context,
+                builder: (context) {
+                  String newPoroda = _petPoroda; // Создаем новую переменную для ввода нового имени
+                  return AlertDialog(
+                    title: Text('Порода'),
+                    content: TextField(
+                      controller: TextEditingController(text: _petPoroda),
+                      onChanged: (value) {
+                        newPoroda = value; // Обновляем новое имя питомца при изменении
+                      },
+                    ),
+                    actions: [
+                      TextButton(
+                        child: Text('Готово'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          updatePetPoroda(newPoroda); // Применяем измененное имя питомца
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            child: Container(
+              width: 182,
+              height: 50, // Высота контейнера
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Center(
+                child: Text(
+                  _petPoroda,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        
         // Новые контейнеры
         Positioned(
-          top: 325, // Подбирайте координаты в зависимости от вашего дизайна
+          top: 525, // Подбирайте координаты в зависимости от вашего дизайна
           left: (MediaQuery.of(context).size.width - 350) / 2, // Центрируем по горизонтали
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -372,26 +457,64 @@ Widget build(BuildContext context) {
           ),
         ),
         Positioned(
-          top: 415, // Подбирайте координаты в зависимости от вашего дизайна
-          left: (MediaQuery.of(context).size.width - 355) / 2, // Центрируем по горизонтали
-          child: Container(
-            width: 355,
-            height: 300,
-            decoration: BoxDecoration(
-              color: const Color(0xFF307AE9),
-              borderRadius: BorderRadius.circular(10),
+      top: 620,
+      left: 40,
+      child: GestureDetector(
+        onTap: () {
+          getImage();
+        },
+        child: Container(
+          width: 340,
+          height: 80,
+          decoration: BoxDecoration(
+            color: Colors.blue, // заменить на ваши данные
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(40),
+              bottomLeft: Radius.circular(40),
             ),
-            // здесь ты можешь добавить дополнительное содержимое, если это необходимо
           ),
-          child: _image == null
-              ? Center(child: Text('Выбрать фото'))
-              : Image.file(_image!, fit: BoxFit.cover),
-            ),
-
-
+          child: Row(
+            children: [
+              Container(
+                margin: EdgeInsets.only(left: 10), // отступ слева
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: _image != null
+                      ? DecorationImage(
+                          image: FileImage(_image!),
+                          fit: BoxFit.cover,
+                        )
+                      : null,
+                ),
+              ),
+              SizedBox(width: 10), // добавим отступ между фотографией и текстом
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  
+                  children: [
+                    TextField(
+                      controller: _nameController,
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                      ),
+                    ),
+                    Text(
+                      owner,
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+              ),
+              
+              ),
             ],
           ),
         ),
+      ),
+    ),
       ],
     ),
   );
