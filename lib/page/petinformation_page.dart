@@ -383,36 +383,10 @@ Widget build(BuildContext context) {
             ),
             // здесь ты можешь добавить дополнительное содержимое, если это необходимо
           ),
-        ),
-        Positioned(
-          top: 430,
-          left: (MediaQuery.of(context).size.width - 150) / 2, // Центрируем по горизонтали
-          child: Column(
-            children: [
-              Text(
-                'Порода:',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
-              ),
-              SizedBox(height: 10),
-              Container(
-  width: 150,
-  decoration: BoxDecoration(
-    color: Colors.grey.withOpacity(0.5),
-    borderRadius: BorderRadius.circular(8),
-  ),
-  child: TextField(
-    style: TextStyle(color: Colors.white),
-    textAlign: TextAlign.center, // Это выравнивание текста в центре
-    decoration: InputDecoration(
-      hintText: 'Введите породу',
-      hintStyle: TextStyle(color: Colors.white),
-      border: InputBorder.none,
-    ),
-  ),
-),
+          child: _image == null
+              ? Center(child: Text('Выбрать фото'))
+              : Image.file(_image!, fit: BoxFit.cover),
+            ),
 
 
             ],
