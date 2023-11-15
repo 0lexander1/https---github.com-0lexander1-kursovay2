@@ -246,7 +246,187 @@ class FourthScreen extends StatefulWidget {
                       ),
                     ),
                   ),
-
+                  
+                  SizedBox(height: 16),
+                  GestureDetector(
+                    onTap: () {
+                      // Действие при нажатии на изображение
+                      // Например, переход на следующую страницу
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Statia2Screen()),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Container(
+                        height: 200,
+                        width: 335,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.asset(
+                                'assets/cat9.jpg',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Positioned(
+                              top: 10, // Расположение по вертикали в верхнем углу контейнера
+                              left: 8, // Расположение по горизонтали в левом углу контейнера
+                              child: Text(
+                                'Груминг',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  GestureDetector(
+                    onTap: () {
+                      // Действие при нажатии на изображение
+                      // Например, переход на следующую страницу
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Statia2Screen()),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Container(
+                        height: 200,
+                        width: 335,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.asset(
+                                'assets/cobaka10.jpg',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Positioned(
+                              top: 10, // Расположение по вертикали в верхнем углу контейнера
+                              left: 8, // Расположение по горизонтали в левом углу контейнера
+                              child: Text(
+                                'Стоматология',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  GestureDetector(
+                    onTap: () {
+                      // Действие при нажатии на изображение
+                      // Например, переход на следующую страницу
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Statia2Screen()),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Container(
+                        height: 200,
+                        width: 335,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.asset(
+                                'assets/cat10.jpg',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Positioned(
+                              top: 10, // Расположение по вертикали в верхнем углу контейнера
+                              left: 8, // Расположение по горизонтали в левом углу контейнера
+                              child: Text(
+                                'Хирургия',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  GestureDetector(
+                    onTap: () {
+                      // Действие при нажатии на изображение
+                      // Например, переход на следующую страницу
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Statia2Screen()),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Container(
+                        height: 200,
+                        width: 335,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.asset(
+                                'assets/cobaka11.jpg',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Positioned(
+                              top: 10, // Расположение по вертикали в верхнем углу контейнера
+                              left: 8, // Расположение по горизонтали в левом углу контейнера
+                              child: Text(
+                                'Вакцинация',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

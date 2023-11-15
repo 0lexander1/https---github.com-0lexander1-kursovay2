@@ -21,7 +21,6 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _repeatpasswordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -36,7 +35,7 @@ class _FirstScreenState extends State<FirstScreen> {
 
   @override
   void dispose() {
-    _nameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     _repeatpasswordController.dispose();
     super.dispose();
@@ -44,7 +43,7 @@ class _FirstScreenState extends State<FirstScreen> {
 
   void _checkFieldsone() {
     setState(() {
-      _isButtonEnabled = _nameController.text.isNotEmpty &&
+      _isButtonEnabled = _emailController.text.isNotEmpty &&
           _passwordController.text.isNotEmpty;
     });
   }
@@ -100,11 +99,11 @@ class _FirstScreenState extends State<FirstScreen> {
     }
   }
 
-  getUserIdByNickname(name) async {
+  getUserIdByEmail(name) async {
     final response = await supabase
         .from('Users')
         .select('id')
-        .eq('nickname', name) 
+        .eq('email', name) 
         .single()
         .execute();
 
@@ -159,14 +158,14 @@ class _FirstScreenState extends State<FirstScreen> {
                                 ImageMain(
                                     width: 0.8,
                                     height: 0.25,
-                                    picture: 'assets/images/logo.svg')
+                                    picture: 'assets/logo.svg')
                               ]),
                           const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 TextPlace(
                                   font: 'GoodDog',
-                                  txt: "Cтудент Тест", 
+                                  txt: "Ветеринарная клиника", 
                                   align: TextAlign.center, 
                                   st: FontWeight.bold, 
                                   width: 0.7, 
@@ -187,7 +186,7 @@ class _FirstScreenState extends State<FirstScreen> {
                                   onSelected: (isSelected) {
                                     setState(() {
                                       isSignInSelected = isSelected;
-                                      _nameController.text = "";
+                                      _emailController.text = "";
                                       _repeatpasswordController.text = "";
                                       _passwordController.text = "";
                                       _isButtonEnabled = false;
@@ -205,7 +204,7 @@ class _FirstScreenState extends State<FirstScreen> {
                                   onSelected: (isSelected) {
                                     setState(() {
                                       isSignInSelected = !isSelected;
-                                      _nameController.text = "";
+                                      _emailController.text = "";
                                       _repeatpasswordController.text = "";
                                       _passwordController.text = "";
                                       _isButtonEnabled = false;
@@ -236,7 +235,7 @@ class _FirstScreenState extends State<FirstScreen> {
                                     MyField(
                                       type: TextInputType.text,
                                       width: 0.8,
-                                      labtext: 'Nickname',
+                                      labtext: 'Email',
                                       height: 0.1,
                                       colortxt: Colors.black,
                                       mode: false,
@@ -244,17 +243,17 @@ class _FirstScreenState extends State<FirstScreen> {
                                       onChange: (value)  {
                                         if (isSignInSelected) {
                                           setState(() {
-                                            _nameController.text = value;
+                                            _emailController.text = value;
                                             _checkFieldsone();
                                           });
                                         } else {
                                           setState(() {
-                                            _nameController.text = value;
+                                            _emailController.text = value;
                                             _checkFieldstwo();
                                           });
                                         }
                                       },
-                                      controller: _nameController,
+                                      controller: _emailController,
                                     ),
                                   ]),
                               SizedBox(
@@ -327,21 +326,20 @@ class _FirstScreenState extends State<FirstScreen> {
                                     height: 0.09,
                                     check: () async {
 
-                                      String username = _nameController.text;
+                                      String email = _emailController.text;
                                       String password = _passwordController.text;
 
                                       try {
                                         var response = await supabase
                                             .from('Users')
                                             .select()
-                                            .eq('nickname', username)
+                                            .eq('email', email)
                                             .eq('password', password)
                                             .execute();
-
                                         if (response.status == 200) {
                                           var data = response.data;
-                                          await getUserIdByNickname(_nameController.text);
-                                          AppConstants.nickname = _nameController.text;
+                                          await getUserIdByEmail(_emailController.text);
+                                          email = _emailController.text;
                                           // Проверка, найдены ли пользователь и пароль в базе данных
                                           if (data.length > 0) {
                                             Fluttertoast.showToast(
@@ -378,7 +376,7 @@ class _FirstScreenState extends State<FirstScreen> {
                                           // Обработка ошибки
                                           print(error.toString());
                                           Fluttertoast.showToast(
-                                              msg: "Данного ника нет в системе",
+                                              msg: "Такой почты нет в системе",
                                               toastLength: Toast.LENGTH_SHORT,
                                               gravity: ToastGravity.BOTTOM,
                                               timeInSecForIosWeb: 1,
@@ -403,7 +401,7 @@ class _FirstScreenState extends State<FirstScreen> {
                                     MyField(
                                       type: TextInputType.emailAddress,
                                       width: 0.8,
-                                      labtext: 'Email address',
+                                      labtext: 'Email',
                                       height: 0.1,
                                       colortxt: Colors.black,
                                       mode: false,

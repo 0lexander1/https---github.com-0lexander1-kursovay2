@@ -9,96 +9,28 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 class SecondScreen extends StatefulWidget {
-  @override
-  _SecondScreenState createState() => _SecondScreenState();
   final String dataFromControllerOne;
   final String dataFromControllerTwo;
-  SecondScreen(
-      {required this.dataFromControllerOne,
-      required this.dataFromControllerTwo});
+
+  SecondScreen({
+    required this.dataFromControllerOne,
+    required this.dataFromControllerTwo,
+  });
+
+  @override
+  _SecondScreenState createState() => _SecondScreenState();
 }
 
 class _SecondScreenState extends State<SecondScreen> {
-  final TextEditingController _NickNameController = TextEditingController();
-  final TextEditingController _educationalOrganizationController =
-      TextEditingController();
-  final TextEditingController _birthdayController = TextEditingController();
-  final TextEditingController _groupController = TextEditingController();
-  final TextEditingController _polController = TextEditingController();
-  bool _isButtonEnabled = false;
-
   final supabase = SupabaseClient(
     "https://kozqhfezvhmvchjzibkm.supabase.co",
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtvenFoZmV6dmhtdmNoanppYmttIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTk4OTA5MTQsImV4cCI6MjAxNTQ2NjkxNH0.djBwA5y5V1DGgVEAMiqo1UgVXkpECIDZ-EcoDCE6OBY",
   );
 
   @override
-  void dispose() {
-    _NickNameController.dispose();
-    _educationalOrganizationController.dispose();
-    _birthdayController.dispose();
-    _groupController.dispose();
-    _polController.dispose();
-    super.dispose();
-  }
-
-  void _checkFieldsone() {
-    setState(() {
-      _isButtonEnabled = _NickNameController.text.isNotEmpty &&
-          _educationalOrganizationController.text.isNotEmpty &&
-          _birthdayController.text.isNotEmpty &&
-          _groupController.text.isNotEmpty &&
-          _polController.text.isNotEmpty;
-    });
-  }
-  checkBirthday() {
-    final inputDate = _birthdayController.text;
-
-    if (inputDate.isEmpty) {
-      Fluttertoast.showToast(
-        msg: "Введите дату рождения",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 3,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-      return false;
-    }
-
-    final dateFormat = DateFormat('yy.MM.dd');
-    DateTime parsedDate;
-
-    try {
-      parsedDate = dateFormat.parse(inputDate);
-    } catch (error) {
-      Fluttertoast.showToast(
-        msg: "Некорректный формат даты",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 3,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-      return false;
-    }
-
-    if (parsedDate.isAfter(DateTime.now())) {
-      Fluttertoast.showToast(
-        msg: "Дата рождения не может быть в будущем",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 3,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-      return false;
-    }
-
-    return true;
+  void initState() {
+    super.initState();
+    createNewUser(); // Вызываем метод создания нового пользователя сразу после инициализации экрана
   }
   
   void createNewUser() async {
@@ -109,12 +41,12 @@ class _SecondScreenState extends State<SecondScreen> {
     final count = responseid.data.length + 2;
     final int newId = count + 1;
 
-    final nickname = _NickNameController.text;
+    final email = widget.dataFromControllerOne;
     // Проверка наличия уже существующих пользователей с указанным никнеймом
     final checkResponse = await supabase
         .from('Users')
         .select()
-        .eq('nickname', nickname)
+        .eq('email', email)
         .execute();
 
     if (checkResponse.status != 200) {
@@ -148,11 +80,6 @@ class _SecondScreenState extends State<SecondScreen> {
           'email': widget.dataFromControllerOne,
           'password': widget.dataFromControllerTwo,
           'role': 1,
-          'birthday': _birthdayController.text,
-          'nickname': _NickNameController.text,
-          'group': _groupController.text,
-          'gender': _polController.text,
-          'educational_organization': _educationalOrganizationController.text
         }
       ]).execute();
 
@@ -195,190 +122,11 @@ class _SecondScreenState extends State<SecondScreen> {
       }
     }
   }
-
     @override
-    Widget build(BuildContext context) {
-      final screenHeight = MediaQuery.of(context).size.height;
-
-      return Scaffold(
-          backgroundColor: const Color.fromARGB(255, 231, 229, 229),
-          body: SingleChildScrollView(
-              child: Center(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        color: Color.fromRGBO(220, 113, 127, 1),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    const TextPlace(
-                        font: "Source Sans Pro",
-                        txt: "Заполните анкету",
-                        align: TextAlign.center,
-                        st: FontWeight.bold,
-                        width: 0.8,
-                        height: 0.2,
-                        backgroundColor: Color.fromRGBO(12, 12, 324, 0),
-                        colortxt: Colors.black,
-                        size: 24)
-                  ],
-                ),
-                SizedBox(
-                  height: screenHeight * 0.01,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    MyField(
-                      type: TextInputType.text,
-                      width: 0.8,
-                      labtext: "Nickname",
-                      height: 0.1,
-                      colortxt: Colors.black,
-                      mode: false,
-                      hinttxt: "",
-                      onChange: (value) {
-                        setState(() {
-                          _NickNameController.text =
-                              value; // Установка значения поля
-                          _checkFieldsone();
-                        });
-                      },
-                      controller: _NickNameController,
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: screenHeight * 0.05,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    MyField(
-                      type: TextInputType.text,
-                      width: 0.8,
-                      labtext: "Образовательная организация",
-                      height: 0.1,
-                      colortxt: Colors.black,
-                      mode: false,
-                      hinttxt: "",
-                      onChange: (value) {
-                        setState(() {
-                          _educationalOrganizationController.text =
-                              value; // Установка значения поля
-                          _checkFieldsone();
-                        });
-                      },
-                      controller: _educationalOrganizationController,
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: screenHeight * 0.05,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    MyField(
-                      type: TextInputType.datetime,
-                      width: 0.8,
-                      labtext: "Дата рождения",
-                      height: 0.1,
-                      colortxt: Colors.black,
-                      mode: false,
-                      hinttxt: "гг.мм.дд",
-                      onChange: (value) {
-                        setState(() {
-                          _birthdayController.text =
-                              value; // Установка значения поля
-                          _checkFieldsone();
-                        });
-                      },
-                      controller: _birthdayController,
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: screenHeight * 0.05,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    MyField(
-                      type: TextInputType.text,
-                      width: 0.8,
-                      labtext: "Группа",
-                      height: 0.1,
-                      colortxt: Colors.black,
-                      mode: false,
-                      hinttxt: "",
-                      onChange: (value) {
-                        setState(() {
-                          _groupController.text =
-                              value; // Установка значения поля
-                          _checkFieldsone();
-                        });
-                      },
-                      controller: _groupController,
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: screenHeight * 0.05,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Pol(
-                      width: 0.8,
-                      labtext: "Пол",
-                      height: 0.1,
-                      colortxt: Colors.black,
-                      mode: false,
-                      hinttxt: "",
-                      onChange: (value) {
-                        setState(() {
-                          _polController.text =
-                              value; // Установка значения поля
-                          _checkFieldsone();
-                        });
-                      },
-                      controller: _polController,
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: screenHeight * 0.05,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ButtonEntry(
-                      size: 16,
-                      isEnabled: _isButtonEnabled,
-                      backgroundColor: _isButtonEnabled
-                          ? const Color.fromARGB(92, 220, 113, 127)
-                          : const Color.fromRGBO(220, 113, 127, 100),
-                      colortxt: Colors.white,
-                      height: 0.09,
-                      check: () {
-                        if (checkBirthday() == true){
-                        createNewUser();
-                        }
-                      },
-                      txt: "Далее",
-                      width: 0.8,
-                    )
-                  ],
-                )
-              ],
-            ),
-          )));
-    }
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // Оставим пустой виджет; данная страница не будет ни отображаться, ни взаимодействовать с пользователем, так как операции будут автоматически выполняться в методе initState
+      // (метод initState вызывается при первой отрисовке экрана).
+    );
   }
+}

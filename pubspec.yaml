@@ -16,10 +16,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 0.1.0
 
 environment:
-  sdk: '>=3.1.4 <4.0.0'
+  sdk: '>=3.1.2 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -30,12 +30,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_web_auth: ^0.5.0
+  cached_network_image: ^3.2.1
   image_picker: ^1.0.4
   flutter_svg: ^2.0.7
   shared_preferences: ^2.0.12
-  supabase_flutter: ^1.10.23
+  http: ^1.1.0
+  intl: ^0.18.1
   fluttertoast: ^8.0.8
   mailer: ^6.0.1
+  image_cropper: ^5.0.0
+  image_crop: ^0.4.1 
+  flutter_slidable: ^3.0.1
+ 
   
 
   # The following adds the Cupertino Icons font to your application.
@@ -54,7 +61,10 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.0
+  supabase_flutter: ^1.10.23
+  fluttertoast: ^8.0.8
+  shared_preferences: ^2.0.12
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -76,6 +86,10 @@ flutter:
     - assets/cat4.jpg
     - assets/cat5.jpg
     - assets/cat6.jpg
+    - assets/cat7.jpg
+    - assets/cat8.jpg
+    - assets/cat9.jpg
+    - assets/cat10.jpg
     - assets/catprofile.jpg
     - assets/cobaka.jpg
     - assets/cobaka2.jpg
@@ -86,9 +100,13 @@ flutter:
     - assets/cobaka7.jpg
     - assets/cobaka8.jpg
     - assets/cobaka9.jpg
-    - assets/logo.jpg
+    - assets/cobaka10.jpg
+    - assets/cobaka11.jpg
+    - assets/logo.svg
     - assets/marker.png
     - assets/markerKlinik.png
+    - assets/kartinka1.png
+    - assets/kartinka2.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

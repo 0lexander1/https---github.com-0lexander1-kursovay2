@@ -32,7 +32,7 @@ class _ZeroScreenState extends State<ZeroScreen> {
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                   ImageMain(width: 0.8, height: 0.55, picture: "assets/logo.jpg")
+                   ImageMain(width: 0.8, height: 0.55, picture: "assets/logo.svg")
                   ],
                 ),
                 SizedBox(height: screenHeight * 0.001),

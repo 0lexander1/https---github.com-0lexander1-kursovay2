@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/page/fifth_page.dart';
 import 'package:flutter_application_1/page/profile_page.dart';
@@ -108,56 +109,107 @@ class ThirdScreen extends StatefulWidget {
           ),
           SizedBox(height: 16), // Небольшой промежуток перед изображениями
     SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Statia2Screen()),
-              );
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Container(
-                height: 152,
-                width: 344,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: AssetImage('assets/cobaka2.jpg'),
-                    fit: BoxFit.cover,
-                  ),
+  scrollDirection: Axis.horizontal,
+  child: Row(
+    children: [
+      Container(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Container(
+            height: 152,
+            width: 344,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Color(0xFF181947), // Цвет первого контейнера
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(width: 20),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Пройдите плановую",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Text(
+                      "профилактику и вакцинацию",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Text(
+                      "для вашего питомца",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(height: 10),
+                     // Добавим небольшой отступ между текстом и кнопкой
+                    ElevatedButton(
+                      onPressed: () {
+                        // Обработчик нажатия кнопки
+                      },
+                      child: Text("Записаться"),
+                    ),
+                  ],
                 ),
-              ),
+                SizedBox(width: 10), // Добавим небольшой отступ между текстом и картинкой
+                Image.asset('assets/kartinka1.png'), // Картинка для первого контейнера
+              ],
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Statia2Screen()),
-              );
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Container(
-                height: 152,
-                width: 344,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: AssetImage('assets/cobaka3.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
-    ),
+      Container(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Container(
+            height: 152,
+            width: 344,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Color(0xFF16DBF5), // Цвет второго контейнера
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(width: 20),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Груминг и другие",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Text(
+                      "способы по уходу за вашим",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Text(
+                      "питомцем",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(height: 10), // Добавим небольшой отступ между текстом и кнопкой
+                    ElevatedButton(
+                      onPressed: () {
+                        // Обработчик нажатия кнопки
+                      },
+                      child: Text("Записаться"),
+                    ),
+                  ],
+                ),
+                SizedBox(width: 10), // Добавим небольшой отступ между текстом и картинкой
+                Image.asset('assets/kartinka2.png'), // Картинка для второго контейнера
+              ],
+            ),
+          ),
+        ),
+      ),
+    ],
+  ),
+),
+
+
             Container(
               padding: const EdgeInsets.all(10.0),
               child: Row(
@@ -196,9 +248,11 @@ class ThirdScreen extends StatefulWidget {
                 ],
               ),
             ),
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                SizedBox(width: 5),
                 GestureDetector(
                   onTap: () {
                     // Действие при нажатии на изображение
