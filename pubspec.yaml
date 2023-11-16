@@ -42,6 +42,8 @@ dependencies:
   image_cropper: ^5.0.0
   image_crop: ^0.4.1 
   flutter_slidable: ^3.0.1
+  flutter_launcher_icons: "^0.9.1"
+  material_design_icons_flutter: 7.0.7296
  
   
 

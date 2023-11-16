@@ -1,20 +1,160 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/widget/field.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:flutter_application_1/AppConstants/constants.dart';
+import 'package:supabase/supabase.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+import '../widget/authorization/reg_en_button.dart';
+
+// ignore: must_be_immutable
 class PetInformationScreen extends StatefulWidget {
+  PetInformationScreen({super.key});
+
   @override
   _PetInformationScreenState createState() => _PetInformationScreenState();
+  int data = 0;
 }
 
 class _PetInformationScreenState extends State<PetInformationScreen> {
   File? _image;
-  TextEditingController _nameController = TextEditingController(text: 'Имя Фамилия');
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _petNameController = TextEditingController();
+  final TextEditingController _petPorodaController = TextEditingController();
+  final TextEditingController _ageValueController = TextEditingController();
+  final TextEditingController _sexValueController = TextEditingController();
+  final TextEditingController _okrasValueController = TextEditingController();
+  final TextEditingController _weightValueController = TextEditingController();
+
+  bool _isButtonEnabled = false;
   String owner = 'Владелец';
 
   final picker = ImagePicker();
-  String _petName = 'Кличка'; // Изначальное значение "Кличка"
-  String _petPoroda = 'Порода';
+
+  final supabase = SupabaseClient(
+  "https://kozqhfezvhmvchjzibkm.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtvenFoZmV6dmhtdmNoanppYmttIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTk4OTA5MTQsImV4cCI6MjAxNTQ2NjkxNH0.djBwA5y5V1DGgVEAMiqo1UgVXkpECIDZ-EcoDCE6OBY",
+  );
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _petNameController.dispose();
+    _petPorodaController.dispose();
+    _ageValueController.dispose();
+    _sexValueController.dispose();
+    _okrasValueController.dispose();
+    _weightValueController.dispose();
+    super.dispose();
+  }
+
+    void _checkFieldsone() {
+    setState(() {
+      _isButtonEnabled = _nameController.text.isNotEmpty &&
+          _petNameController.text.isNotEmpty &&
+          _petPorodaController.text.isNotEmpty &&
+          _ageValueController.text.isNotEmpty &&
+          _sexValueController.text.isNotEmpty &&
+          _okrasValueController.text.isNotEmpty &&
+          _weightValueController.text.isNotEmpty;
+    });
+  }
+
+    void insertUser() async {
+    final response = await supabase
+    .from('Pet')
+    .upsert(
+    [
+      {
+      'id': AppConstants.petID,
+      'Name': _petNameController.text,
+      'Poroda': _petPorodaController.text,
+      'Age': _ageValueController.text,
+      'Sex': _sexValueController.text,
+      'Okras': _okrasValueController.text,
+      'Ves': _weightValueController.text,
+      'Vladelec': _nameController.text,
+      }
+    ],
+  )
+   // ignore: deprecated_member_use
+  .execute();
+
+    if (response.status == 200) {
+      Fluttertoast.showToast(
+          msg: "Ошибка при изменении данных пользователя",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+    }
+    else{
+       Fluttertoast.showToast(
+          msg: "Данные изменены",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+            builder: (context) => PetInformationScreen(), 
+            ),
+        );
+    }
+  }
+  void getPetData() async {
+    final response = await supabase
+    .from('Pet')
+    .select()
+    .eq('id', AppConstants.petID)
+    // ignore: deprecated_member_use
+    .execute();
+
+    if (response.status != 200) {
+      Fluttertoast.showToast(
+            msg: "Ошибка при загрузке данных пользователя",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0,
+      );
+    }
+    if (response.status == 200) {
+      Fluttertoast.showToast(
+            msg: "Данные пользователя загружены",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0,
+      );
+
+      final data = response.data;
+      print(data);
+      if (data.length > 0) {
+        final pet = data[0];
+        _petNameController.text = pet['Name'] ?? '';
+        _petPorodaController.text = pet['Poroda'] ?? '';
+        _ageValueController.text = pet['Age'] ?? '';
+        _sexValueController.text = pet['Sex'] ?? '';
+        _okrasValueController.text = pet['Okras'] ?? '';
+        _weightValueController.text = pet['Ves'] ?? '';
+        _nameController.text = pet['Vladelec'] ?? '';
+      }
+    }
+  }
 
   Future<void> getImage() async {
     final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -28,20 +168,17 @@ class _PetInformationScreenState extends State<PetInformationScreen> {
     });
   }
 
-  void updatePetName(String newName) {
-    setState(() {
-      _petName = newName; // Обновляем имя питомца
-    });
-  }
 
-  void updatePetPoroda(String newPoroda) {
-    setState(() {
-      _petPoroda = newPoroda; // Обновляем имя питомца
-    });
-  }
+
 
 @override
 Widget build(BuildContext context) {
+
+ if (widget.data != 1){
+        getPetData();
+        widget.data = 1;
+      }
+
   return Scaffold(
     extendBodyBehindAppBar: true, // Разрешаем содержимому пройти за апп бар
         appBar: AppBar(
@@ -90,45 +227,27 @@ Widget build(BuildContext context) {
                 Positioned(
                   bottom: 0,
                   left: (MediaQuery.of(context).size.width - 360) / 2,
-                  child: GestureDetector(
-                    onTap: () {
-                      // При нажатии, открываем диалоговое окно для изменения имени питомца
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          String newName = _petName; // Создаем новую переменную для ввода нового имени
-                          return AlertDialog(
-                            title: Text('Изменить кличку'),
-                            content: TextField(
-                              controller: TextEditingController(text: _petName),
-                              onChanged: (value) {
-                                newName = value; // Обновляем новое имя питомца при изменении
-                              },
-                            ),
-                            actions: [
-                              TextButton(
-                                child: Text('Готово'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  updatePetName(newName); // Применяем измененное имя питомца
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
                     child: Container(
                       height: 27,
                       width: 182,
                       child: Center(
-                        child: Text(
-                          _petName,
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                          ),
-                        ),
+                        child: MyField(
+                        labtext: 'Кличка',
+                        type: TextInputType.text,
+                        width: 0.4,
+                        height: 0.1,
+                        colortxt: Colors.black,
+                        mode: false,
+                        hinttxt: "",
+                        onChange: (value) {
+                          setState(() {
+                            _petNameController.text =
+                                value; // Установка значения поля
+                            _checkFieldsone();
+                          });
+                        },
+                        controller: _petNameController,
+                      ),
                       ),
                       decoration: BoxDecoration(
                         color: Colors.grey.withOpacity(0.5),
@@ -138,7 +257,7 @@ Widget build(BuildContext context) {
                         ),
                       ),
                     ),
-                  ),
+                  
                 ),
               ],
             ),
@@ -175,34 +294,6 @@ Widget build(BuildContext context) {
         Positioned(
           top: 450, // Смещение от верхней границы нижнего контейнера
           left: (MediaQuery.of(context).size.width - 182) / 2, // Центрируем по горизонтали
-          child: GestureDetector(
-            onTap: () {
-              // При нажатии, открываем диалоговое окно для изменения имени питомца
-              showDialog(
-                context: context,
-                builder: (context) {
-                  String newPoroda = _petPoroda; // Создаем новую переменную для ввода нового имени
-                  return AlertDialog(
-                    title: Text('Порода'),
-                    content: TextField(
-                      controller: TextEditingController(text: _petPoroda),
-                      onChanged: (value) {
-                        newPoroda = value; // Обновляем новое имя питомца при изменении
-                      },
-                    ),
-                    actions: [
-                      TextButton(
-                        child: Text('Готово'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          updatePetPoroda(newPoroda); // Применяем измененное имя питомца
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
             child: Container(
               width: 182,
               height: 50, // Высота контейнера
@@ -211,16 +302,26 @@ Widget build(BuildContext context) {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
-                child: Text(
-                  _petPoroda,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
-                ),
+                child: MyField(
+                        labtext: 'Порода',
+                        type: TextInputType.text,
+                        width: 0.4,
+                        height: 0.1,
+                        colortxt: Colors.black,
+                        mode: false,
+                        hinttxt: "",
+                        onChange: (value) {
+                          setState(() {
+                            _petPorodaController.text =
+                                value; // Установка значения поля
+                            _checkFieldsone();
+                          });
+                        },
+                        controller: _petPorodaController,
+                      ),
               ),
             ),
-          ),
+          
         ),
         
         // Новые контейнеры
@@ -247,12 +348,22 @@ Widget build(BuildContext context) {
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       color: Colors.transparent, // Прозрачный задний фон надписи
-                      child: Text(
-                        'Возраст',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
+                      child: MyField(
+                        labtext: 'Возраст',
+                        type: TextInputType.text,
+                        width: 0.4,
+                        height: 0.1,
+                        colortxt: Colors.black,
+                        mode: false,
+                        hinttxt: "",
+                        onChange: (value) {
+                          setState(() {
+                            _ageValueController.text =
+                                value; // Установка значения поля
+                            _checkFieldsone();
+                          });
+                        },
+                        controller: _ageValueController,
                       ),
                     ),
                   ),
@@ -303,12 +414,89 @@ Widget build(BuildContext context) {
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       color: Colors.transparent, // Прозрачный задний фон надписи
-                      child: Text(
-                        'Пол',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
+                      child: MyField(
+                        labtext: 'Пол',
+                        type: TextInputType.text,
+                        width: 0.4,
+                        height: 0.1,
+                        colortxt: Colors.black,
+                        mode: false,
+                        hinttxt: "",
+                        onChange: (value) {
+                          setState(() {
+                            _sexValueController.text =
+                                value; // Установка значения поля
+                            _checkFieldsone();
+                          });
+                        },
+                        controller: _sexValueController,
+                      ),
+                      
+                    ),
+                  ),
+                  Positioned( // Полупрозрачный контейнер
+                    bottom: 5,
+                    left: 5,
+                    right: 5,
+                    child: Container(
+                      width: 69,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.5),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
                         ),
+                      ),
+                      child: Center(
+                        child: TextField(
+                          style: TextStyle(color: Colors.white),
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(width: 10),
+              Stack(
+                children: [
+                  Container( // Контейнер с цветом
+                    width: 80,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.blue, // Цвет или другие стилизации
+                    ),
+                  ),
+                  Positioned( // Надпись "Возраст"
+                    top: 5,
+                    left: 5,
+                    right: 5,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      color: Colors.transparent, // Прозрачный задний фон надписи
+                      child: MyField(
+                        labtext: 'Окрас',
+                        type: TextInputType.text,
+                        width: 0.4,
+                        height: 0.1,
+                        colortxt: Colors.black,
+                        mode: false,
+                        hinttxt: "",
+                        onChange: (value) {
+                          setState(() {
+                            _okrasValueController.text =
+                                value; // Установка значения поля
+                            _checkFieldsone();
+                          });
+                        },
+                        controller: _okrasValueController,
                       ),
                     ),
                   ),
@@ -359,68 +547,22 @@ Widget build(BuildContext context) {
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       color: Colors.transparent, // Прозрачный задний фон надписи
-                      child: Text(
-                        'Окрас',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned( // Полупрозрачный контейнер
-                    bottom: 5,
-                    left: 5,
-                    right: 5,
-                    child: Container(
-                      width: 69,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.5),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10),
-                        ),
-                      ),
-                      child: Center(
-                        child: TextField(
-                          style: TextStyle(color: Colors.white),
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(width: 10),
-              Stack(
-                children: [
-                  Container( // Контейнер с цветом
-                    width: 80,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.blue, // Цвет или другие стилизации
-                    ),
-                  ),
-                  Positioned( // Надпись "Возраст"
-                    top: 5,
-                    left: 5,
-                    right: 5,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      color: Colors.transparent, // Прозрачный задний фон надписи
-                      child: Text(
-                        'Вес',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
+                      child: MyField(
+                        labtext: 'Вес',
+                        type: TextInputType.text,
+                        width: 0.4,
+                        height: 0.1,
+                        colortxt: Colors.black,
+                        mode: false,
+                        hinttxt: "",
+                        onChange: (value) {
+                          setState(() {
+                            _weightValueController.text =
+                                value; // Установка значения поля
+                            _checkFieldsone();
+                          });
+                        },
+                        controller: _weightValueController,
                       ),
                     ),
                   ),
@@ -496,6 +638,13 @@ Widget build(BuildContext context) {
                   
                   children: [
                     TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          _nameController.text =
+                              value; // Установка значения поля
+                          _checkFieldsone();
+                        });
+                      },
                       controller: _nameController,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
@@ -506,17 +655,41 @@ Widget build(BuildContext context) {
                       owner,
                       style: TextStyle(color: Colors.black),
                     ),
+                    
                   ],
+                  
               ),
               
               ),
+              
             ],
           ),
         ),
       ),
     ),
+    SizedBox(height: 800),
+    Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ButtonEntry(
+                      size: 16,
+                      isEnabled: _isButtonEnabled,
+                      backgroundColor: _isButtonEnabled
+                          ? const Color.fromARGB(92, 220, 113, 127)
+                          : const Color.fromRGBO(220, 113, 127, 100),
+                      colortxt: Colors.white,
+                      height: 0.09,
+                      check: () {
+                        insertUser();
+                      },
+                      txt: "Сохранить",
+                      width: 0.8,
+                    )
+                  ],
+                )
       ],
     ),
   );
+  
 }
 }

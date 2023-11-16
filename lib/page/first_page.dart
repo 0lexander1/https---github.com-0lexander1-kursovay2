@@ -13,7 +13,6 @@ import 'package:supabase/supabase.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_application_1/AppConstants/constants.dart';
 
-
 class FirstScreen extends StatefulWidget {
   @override
   _FirstScreenState createState() => _FirstScreenState();
@@ -157,7 +156,7 @@ class _FirstScreenState extends State<FirstScreen> {
                               children: [
                                 ImageMain(
                                     width: 0.8,
-                                    height: 0.25,
+                                    height: 0.3,
                                     picture: 'assets/logo.svg')
                               ]),
                           const Row(
@@ -168,13 +167,13 @@ class _FirstScreenState extends State<FirstScreen> {
                                   txt: "Ветеринарная клиника", 
                                   align: TextAlign.center, 
                                   st: FontWeight.bold, 
-                                  width: 0.7, 
+                                  width: 0.9, 
                                   height: 0.07, 
                                   backgroundColor: Colors.white, 
                                   colortxt: Colors.black, 
-                                  size: 36)
+                                  size: 28)
                               ]),
-                          SizedBox(height: screenHeight * 0.06,), 
+                          SizedBox(height: 9), 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
