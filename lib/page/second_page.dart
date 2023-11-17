@@ -9,16 +9,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 class SecondScreen extends StatefulWidget {
+  @override
+  // ignore: library_private_types_in_public_api
+  _SecondScreenState createState() => _SecondScreenState();
   final String dataFromControllerOne;
   final String dataFromControllerTwo;
-
-  SecondScreen({
-    required this.dataFromControllerOne,
-    required this.dataFromControllerTwo,
-  });
-
-  @override
-  _SecondScreenState createState() => _SecondScreenState();
+  const SecondScreen(
+      {super.key, required this.dataFromControllerOne,
+      required this.dataFromControllerTwo});
 }
 
 class _SecondScreenState extends State<SecondScreen> {

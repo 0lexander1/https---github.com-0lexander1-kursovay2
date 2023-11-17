@@ -98,11 +98,11 @@ class _FirstScreenState extends State<FirstScreen> {
     }
   }
 
-  getUserIdByEmail(name) async {
+  getUserIdByEmail(email) async {
     final response = await supabase
         .from('Users')
         .select('id')
-        .eq('email', name) 
+        .eq('email', email) 
         .single()
         .execute();
 
@@ -295,8 +295,7 @@ class _FirstScreenState extends State<FirstScreen> {
                                   FogetPassword(
                                     backgroundColor:
                                         const Color.fromRGBO(100, 124, 234, 0),
-                                    colortxt: const Color.fromRGBO(
-                                        220, 113, 127, 100),
+                                    colortxt: const  Color(0xFF1A6FEE),
                                     height: 0.05,
                                     page: (context) => ThirdScreen(),
                                     txt: "Забыли пароль?",
@@ -317,10 +316,8 @@ class _FirstScreenState extends State<FirstScreen> {
                                     size: 16,
                                     isEnabled: _isButtonEnabled,
                                     backgroundColor: _isButtonEnabled
-                                        ? const Color.fromARGB(
-                                            92, 220, 113, 127)
-                                        : const Color.fromRGBO(
-                                            220, 113, 127, 100),
+                                        ? const  Color(0xFF1A6FEE)
+                                        : const  Color(0xFF1A6FEE),
                                     colortxt: Colors.white,
                                     height: 0.09,
                                     check: () async {
@@ -483,10 +480,8 @@ class _FirstScreenState extends State<FirstScreen> {
                                     size: 16,
                                     isEnabled: _isButtonEnabledTwo,
                                     backgroundColor: _isButtonEnabledTwo
-                                        ? const Color.fromARGB(
-                                            92, 220, 113, 127)
-                                        : const Color.fromRGBO(
-                                            220, 113, 127, 100),
+                                        ? const  Color(0xFF1A6FEE)
+                                        : const Color(0xFF1A6FEE),
                                     colortxt: Colors.white,
                                     height: 0.09,
                                     check: () {

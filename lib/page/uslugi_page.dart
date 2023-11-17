@@ -9,6 +9,7 @@ import 'package:flutter_application_1/page/statia3_page.dart';
 import 'package:flutter_application_1/page/statia4_page.dart';
 import 'package:flutter_application_1/page/statia5_page.dart';
 import 'package:flutter_application_1/page/statia6_page.dart';
+import 'package:flutter_application_1/page/uslsuga_terapia.dart';
 import '../widget/list_item.dart';
 import 'package:flutter_application_1/page/uslugi_page.dart';
 
@@ -117,7 +118,7 @@ class FourthScreen extends StatefulWidget {
                     // Например, переход на следующую страницу
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Statia5Screen()),
+                      MaterialPageRoute(builder: (context) => UslugaTerapiaScreen()),
                     );
                   },
                   child: Padding(
